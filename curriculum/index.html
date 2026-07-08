@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌍 Code Duniya - World's Best Roman English Programming Platform (2026)</title>
+    <style>
+        /* ===== CSS VARIABLES (Light & Dark Mode) ===== */
+        :root {
+            --bg: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-card: #ffffff;
+            --text: #1a1a2e;
+            --text-secondary: #555;
+            --heading: #16213e;
+            --accent: #0f3460;
+            --accent2: #e94560;
+            --accent3: #533483;
+            --border: #e0e0e0;
+            --shadow: 0 8px 32px rgba(0,0,0,0.08);
+            --shadow-hover: 0 16px 48px rgba(0,0,0,0.15);
+            --gradient1: linear-gradient(135deg, #0f3460, #533483);
+            --gradient2: linear-gradient(135deg, #e94560, #0f3460);
+            --gradient3: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --code-bg: #1e1e2e;
+            --code-text: #cdd6f4;
+            --tag-beginner: #4caf50;
+            --tag-intermediate: #2196f3;
+            --tag-advanced: #ff9800;
+            --tag-expert: #e94560;
+            --table-stripe: #f8f9fa;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #e94560;
+            --info: #2196f3;
+            --radius: 16px;
+            --radius-sm: 8px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg: #0a0a1a;
+            --bg-secondary: #111128;
+            --bg-card: #1a1a35;
+            --text: #e4e4f0;
+            --text-secondary: #a0a0c0;
+            --heading: #ffffff;
+            --accent: #4fc3f7;
+            --accent2: #ff6b6b;
+            --accent3: #b388ff;
+            --border: #2a2a4a;
+            --shadow: 0 8px 32px rgba(0,0,0,0.3);
+            --shadow-hover: 0 16px 48px rgba(0,0,0,0.5);
+            --gradient1: linear-gradient(135deg, #1a1a4e, #3a1a6e);
+            --gradient2: linear-gradient(135deg, #6b2a3a, #1a1a4e);
+            --gradient3: linear-gradient(135deg, #3a3a7e 0%, #5a3a8e 100%);
+            --table-stripe: #1a1a35;
+        }
+
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; font-size: 16px; }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            transition: background var(--transition), color var(--transition);
+            overflow-x: hidden;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+
+        /* ===== THEME TOGGLE ===== */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--gradient1);
+            border: 2px solid rgba(255,255,255,0.2);
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(15,52,96,0.4);
+            transition: all var(--transition);
+        }
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 0 8px 30px rgba(15,52,96,0.6);
+        }
+
+        /* ===== SCROLL PROGRESS ===== */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--gradient2);
+            z-index: 9998;
+            transition: width 0.1s;
+            border-radius: 0 2px 2px 0;
+        }
+
+        /* ===== TOP NAV ===== */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 9997;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 20px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: background var(--transition);
+        }
+        [data-theme="dark"] .top-nav {
+            background: rgba(10,10,26,0.85);
+        }
+
+        .top-nav .logo {
+            font-size: 1.3rem;
+            font-weight: 800;
+            background: var(--gradient1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            white-space: nowrap;
+        }
+
+        .nav-search {
+            flex: 1;
+            max-width: 500px;
+            position: relative;
+        }
+        .nav-search input {
+            width: 100%;
+            padding: 10px 16px 10px 44px;
+            border-radius: 50px;
+            border: 2px solid var(--border);
+            background: var(--bg-secondary);
+            color: var(--text);
+            font-size: 0.9rem;
+            transition: all var(--transition);
+            outline: none;
+        }
+        .nav-search input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(15,52,96,0.1);
+        }
+        .nav-search .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            flex-wrap: nowrap;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 50px;
+            transition: all var(--transition);
+            white-space: nowrap;
+        }
+        .nav-links a:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* ===== MOBILE MENU ===== */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            margin-top: 64px;
+            padding: 80px 20px 60px;
+            text-align: center;
+            background: var(--gradient1);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: heroBgMove 60s linear infinite;
+        }
+        @keyframes heroBgMove {
+            0% { transform: translate(0,0); }
+            100% { transform: translate(40px,40px); }
+        }
+
+        .hero-content { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+
+        .hero h1 {
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+        .hero h1 span { color: #ffd700; }
+
+        .hero p {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            opacity: 0.9;
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        .hero-stat {
+            text-align: center;
+        }
+        .hero-stat .num {
+            font-size: 2.5rem;
+            font-weight: 900;
+            display: block;
+            line-height: 1;
+        }
+        .hero-stat .label {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-top: 4px;
+        }
+
+        /* ===== SECTIONS ===== */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        section {
+            padding: 64px 0;
+        }
+
+        .section-title {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: var(--gradient1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin-bottom: 40px;
+            max-width: 700px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .section-header .section-subtitle {
+            margin: 0 auto;
+        }
+
+        /* ===== CARDS ===== */
+        .cards-grid {
+            display: grid;
+            gap: 20px;
+        }
+        .cards-grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        .cards-grid-3 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .cards-grid-4 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 28px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: all var(--transition);
+            cursor: default;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+        .card-clickable { cursor: pointer; }
+
+        .card-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+        .card-icon.gradient1 { background: var(--gradient1); color: white; }
+        .card-icon.gradient2 { background: var(--gradient2); color: white; }
+        .card-icon.gradient3 { background: var(--gradient3); color: white; }
+
+        .card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--heading);
+        }
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .card .tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+        .tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .tag-beginner { background: rgba(76,175,80,0.15); color: var(--tag-beginner); }
+        .tag-intermediate { background: rgba(33,150,243,0.15); color: var(--tag-intermediate); }
+        .tag-advanced { background: rgba(255,152,0,0.15); color: var(--tag-advanced); }
+        .tag-expert { background: rgba(233,69,96,0.15); color: var(--tag-expert); }
+
+        .card .topics-count {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        /* ===== LANGUAGE CARDS ===== */
+        .lang-card .card-icon { font-size: 2rem; }
+
+        .lang-card .card-actions {
+            margin-top: 16px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .lang-card .card-actions a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all var(--transition);
+        }
+        .lang-card .card-actions .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+        .lang-card .card-actions .btn-primary:hover { opacity: 0.85; }
+        .lang-card .card-actions .btn-outline {
+            border: 2px solid var(--border);
+            color: var(--text);
+        }
+        .lang-card .card-actions .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* ===== ROADMAP ===== */
+        .roadmap {
+            position: relative;
+            padding-left: 40px;
+        }
+        .roadmap::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--gradient1);
+            border-radius: 2px;
+        }
+
+        .roadmap-item {
+            position: relative;
+            margin-bottom: 32px;
+            padding: 20px 24px;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: all var(--transition);
+        }
+        .roadmap-item:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .roadmap-item::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 24px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--bg);
+            box-shadow: 0 0 0 3px var(--accent);
+        }
+
+        .roadmap-item .phase {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+        .roadmap-item .phase.beginner { color: var(--tag-beginner); }
+        .roadmap-item .phase.intermediate { color: var(--tag-intermediate); }
+        .roadmap-item .phase.advanced { color: var(--tag-advanced); }
+        .roadmap-item .phase.expert { color: var(--tag-expert); }
+
+        .roadmap-item h3 {
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+        }
+        .roadmap-item p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ===== TABLES ===== */
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+        }
+        thead {
+            background: var(--gradient1);
+            color: white;
+        }
+        th {
+            padding: 14px 18px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        td {
+            padding: 12px 18px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+        }
+        tbody tr:hover { background: var(--bg-secondary); }
+        tbody tr:nth-child(even) { background: var(--table-stripe); }
+
+        /* ===== FEATURES ===== */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        .feature-item {
+            text-align: center;
+            padding: 24px 16px;
+            border-radius: var(--radius);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            transition: all var(--transition);
+        }
+        .feature-item:hover {
+            transform: scale(1.05);
+            border-color: var(--accent);
+        }
+        .feature-item .emoji { font-size: 2rem; margin-bottom: 8px; display: block; }
+        .feature-item h4 { font-size: 0.95rem; font-weight: 700; }
+        .feature-item p { font-size: 0.82rem; color: var(--text-secondary); margin-top: 4px; }
+
+        /* ===== LEARNING PATHS ===== */
+        .path-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 28px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: all var(--transition);
+        }
+        .path-card:hover { box-shadow: var(--shadow-hover); }
+
+        .path-card .path-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .path-card .path-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .path-card h3 { font-size: 1.1rem; }
+
+        .path-steps {
+            list-style: none;
+            counter-reset: step;
+        }
+        .path-steps li {
+            counter-increment: step;
+            padding: 8px 0 8px 40px;
+            position: relative;
+            font-size: 0.92rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .path-steps li:last-child { border-bottom: none; }
+        .path-steps li::before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--gradient1);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        .path-steps li .step-time {
+            float: right;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        /* ===== GLOW EFFECT ===== */
+        .glow {
+            position: relative;
+        }
+        .glow::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--gradient1);
+            border-radius: calc(var(--radius) + 2px);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity var(--transition);
+        }
+        .glow:hover::after { opacity: 0.3; }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--gradient1);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        footer h3 { font-size: 1.5rem; margin-bottom: 8px; }
+        footer p { opacity: 0.8; font-size: 0.92rem; }
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        footer .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity var(--transition);
+        }
+        footer .footer-links a:hover { opacity: 1; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .nav-links a { font-size: 0.78rem; padding: 5px 10px; }
+        }
+
+        @media (max-width: 768px) {
+            .top-nav { padding: 0 12px; height: 56px; gap: 10px; }
+
+            .mobile-menu-btn { display: block; }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 56px;
+                left: 0;
+                right: 0;
+                background: var(--bg);
+                flex-direction: column;
+                padding: 16px;
+                border-bottom: 1px solid var(--border);
+                box-shadow: var(--shadow);
+                gap: 4px;
+            }
+            .nav-links.show { display: flex; }
+
+            .nav-search { max-width: none; }
+
+            .hero { padding: 60px 16px 40px; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero-stats { gap: 20px; }
+            .hero-stat .num { font-size: 1.8rem; }
+
+            section { padding: 40px 0; }
+
+            .cards-grid-2, .cards-grid-3, .cards-grid-4 {
+                grid-template-columns: 1fr;
+            }
+
+            .roadmap { padding-left: 30px; }
+            .roadmap-item { padding: 16px; }
+            .roadmap-item::before { left: -23px; width: 12px; height: 12px; }
+
+            th, td { padding: 10px 12px; font-size: 0.82rem; }
+
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+                width: 44px;
+                height: 44px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            html { font-size: 14px; }
+            .hero h1 { font-size: 1.5rem; }
+            .hero-stat .num { font-size: 1.4rem; }
+            .container { padding: 0 12px; }
+        }
+
+        /* ===== DARK MODE TRANSITION HELPER ===== */
+        .theme-transition, .theme-transition *, .theme-transition *::before, .theme-transition *::after {
+            transition: all 0.3s ease !important;
+        }
+
+        /* ===== SEARCH HIGHLIGHT ===== */
+        .search-highlight {
+            background: #ffd700;
+            color: #1a1a2e;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+        [data-theme="dark"] .search-highlight {
+            background: #b388ff;
+            color: white;
+        }
+
+        /* ===== MISC ===== */
+        .text-center { text-align: center; }
+        .mt-8 { margin-top: 8px; }
+        .mt-16 { margin-top: 16px; }
+        .mb-8 { margin-bottom: 8px; }
+        .mb-16 { margin-bottom: 16px; }
+        .flex { display: flex; }
+        .flex-wrap { flex-wrap: wrap; }
+        .gap-8 { gap: 8px; }
+        .gap-12 { gap: 12px; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            background: var(--accent);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== SCROLL PROGRESS ===== -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- ===== THEME TOGGLE ===== -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span id="themeIcon">🌙</span>
+    </button>
+
+    <!-- ===== TOP NAV ===== -->
+    <nav class="top-nav">
+        <span class="logo">🌍 Code Duniya</span>
+
+        <div class="nav-search">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Search courses, topics, technologies..." aria-label="Search">
+        </div>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">☰</button>
+
+        <div class="nav-links" id="navLinks">
+            <a href="#languages">Languages</a>
+            <a href="#roadmap">Roadmap</a>
+            <a href="#dsa">DSA</a>
+            <a href="#ai">AI/ML</a>
+            <a href="#career">Career</a>
+        </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>🌍 <span>Code Duniya</span></h1>
+            <p>Programming Seekhna Ab Hua Aasan! <br>
+            World's Best <strong>Roman English</strong> Programming Platform. <br>
+            27+ Courses | 8000+ Topics | FAANG Ready | 2026 Standards</p>
+
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="num">27+</span>
+                    <span class="label">Courses</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="num">8000+</span>
+                    <span class="label">Topics</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="num">100%</span>
+                    <span class="label">Free Forever</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="num">2026</span>
+                    <span class="label">Latest Standards</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== FEATURES ===== -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">🚀 Why Code Duniya?</h2>
+                <p class="section-subtitle">Har concept Roman English mein samjhaya gaya hai. 12 saal ke bachche se lekar professional Developer tak ke liye perfect.</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <span class="emoji">📖</span>
+                    <h4>Roman English</h4>
+                    <p>Har concept Hindi-English mix mein samjhao</p>
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">🧩</span>
+                    <h4>Every Topic</h4>
+                    <p>Chhote se chhota topic bhi include</p>
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">💻</span>
+                    <h4>Code Examples</h4>
+                    <p>5 Beginner + 5 Intermediate + 5 Advanced</p>
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">🎯</span>
+                    <h4>FAANG Ready</h4>
+                    <p>Interview questions, MCQs, Flash Cards</p>
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">🛠️</span>
+                    <h4>Projects</h4>
+                    <p>Real project examples with dry run</p>
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">🔒</span>
+                    <h4>Cyber Security</h4>
+                    <p>Ethical hacking, OWASP, network security</p>
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">🤖</span>
+                    <h4>AI & ML 2026</h4>
+                    <p>LLMs, RAG, AI Agents, MCP, LangChain</p>
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">💼</span>
+                    <h4>Career Focus</h4>
+                    <p>Resume, LinkedIn, Interview prep</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== LANGUAGES ===== -->
+    <section id="languages" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">📚 Complete Curriculum</h2>
+                <p class="section-subtitle">27+ programming languages & technologies. Har language mein Beginner se Expert tak ka safar.</p>
+            </div>
+
+            <div class="cards-grid cards-grid-3" id="langGrid">
+                <!-- Filled by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== COMPARISON TABLE ===== -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">🏆 Hamare Competitors Se Better</h2>
+                <p class="section-subtitle">Code Duniya har tarah se best hai - Roman English, topic count, career prep, aur pricing mein.</p>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Code Duniya ✅</th>
+                            <th>roadmap.sh</th>
+                            <th>freeCodeCamp</th>
+                            <th>Odin Project</th>
+                            <th>Coursera</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Roman English</td><td>✅ FULL</td><td>❌</td><td>❌</td><td>❌</td><td>❌</td></tr>
+                        <tr><td>27+ Courses</td><td>✅</td><td>❌ Partial</td><td>❌ Partial</td><td>❌ Partial</td><td>❌ Paid</td></tr>
+                        <tr><td>8000+ Topics</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td><td>❌</td></tr>
+                        <tr><td>FAANG Prep Built-in</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td><td>✅ Paid</td></tr>
+                        <tr><td>AI/ML 2026</td><td>✅ Latest</td><td>❌</td><td>❌</td><td>❌</td><td>✅ Paid</td></tr>
+                        <tr><td>Cyber Security</td><td>✅ Full</td><td>❌</td><td>❌</td><td>❌</td><td>✅ Paid</td></tr>
+                        <tr><td>Free Forever</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td></tr>
+                        <tr><td>Projects (Real World)</td><td>✅ 50+</td><td>❌</td><td>✅ Some</td><td>✅ Some</td><td>✅ Paid</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== LEARNING PATH ===== -->
+    <section id="roadmap" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">🗺️ Complete Learning Path</h2>
+                <p class="section-subtitle">Beginner se Expert tak ka structured roadmap. Har phase 3-6 months ka hai.</p>
+            </div>
+
+            <div class="cards-grid cards-grid-2" style="margin-bottom:40px;">
+                <div class="path-card">
+                    <div class="path-header">
+                        <div class="path-icon" style="background:rgba(76,175,80,0.15);color:var(--tag-beginner);">🟢</div>
+                        <h3>Beginner Path (0-6 Months)</h3>
+                    </div>
+                    <ol class="path-steps">
+                        <li>Computer Basics & Typing <span class="step-time">1 Week</span></li>
+                        <li>VS Code & Terminal <span class="step-time">1 Week</span></li>
+                        <li>HTML5 Complete <span class="step-time">2 Weeks</span></li>
+                        <li>CSS3 Complete <span class="step-time">3 Weeks</span></li>
+                        <li>JavaScript Basics <span class="step-time">4 Weeks</span></li>
+                        <li>Git & GitHub <span class="step-time">1 Week</span></li>
+                        <li>Mini Projects <span class="step-time">2 Weeks</span></li>
+                    </ol>
+                </div>
+
+                <div class="path-card">
+                    <div class="path-header">
+                        <div class="path-icon" style="background:rgba(33,150,243,0.15);color:var(--tag-intermediate);">🔵</div>
+                        <h3>Intermediate Path (6-12 Months)</h3>
+                    </div>
+                    <ol class="path-steps">
+                        <li>JavaScript Advanced <span class="step-time">4 Weeks</span></li>
+                        <li>TypeScript <span class="step-time">3 Weeks</span></li>
+                        <li>React <span class="step-time">4 Weeks</span></li>
+                        <li>Node.js + Express <span class="step-time">3 Weeks</span></li>
+                        <li>MongoDB + SQL <span class="step-time">3 Weeks</span></li>
+                        <li>REST API Design <span class="step-time">2 Weeks</span></li>
+                        <li>Full Stack Projects <span class="step-time">4 Weeks</span></li>
+                    </ol>
+                </div>
+
+                <div class="path-card">
+                    <div class="path-header">
+                        <div class="path-icon" style="background:rgba(255,152,0,0.15);color:var(--tag-advanced);">🟠</div>
+                        <h3>Advanced Path (12-18 Months)</h3>
+                    </div>
+                    <ol class="path-steps">
+                        <li>Next.js <span class="step-time">3 Weeks</span></li>
+                        <li>Docker & Deployment <span class="step-time">2 Weeks</span></li>
+                        <li>System Design <span class="step-time">4 Weeks</span></li>
+                        <li>DSA (Data Structures) <span class="step-time">8 Weeks</span></li>
+                        <li>Testing (Jest, Cypress) <span class="step-time">2 Weeks</span></li>
+                        <li>CI/CD <span class="step-time">1 Week</span></li>
+                        <li>Advanced Projects <span class="step-time">4 Weeks</span></li>
+                    </ol>
+                </div>
+
+                <div class="path-card">
+                    <div class="path-header">
+                        <div class="path-icon" style="background:rgba(233,69,96,0.15);color:var(--tag-expert);">🔴</div>
+                        <h3>Professional Path (18-24 Months)</h3>
+                    </div>
+                    <ol class="path-steps">
+                        <li>Python + AI/ML <span class="step-time">8 Weeks</span></li>
+                        <li>Cyber Security <span class="step-time">4 Weeks</span></li>
+                        <li>Cloud (AWS/Azure/GCP) <span class="step-time">4 Weeks</span></li>
+                        <li>Microservices <span class="step-time">3 Weeks</span></li>
+                        <li>Design Patterns <span class="step-time">2 Weeks</span></li>
+                        <li>Performance Optimization <span class="step-time">2 Weeks</span></li>
+                        <li>Production Projects <span class="step-time">6 Weeks</span></li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="roadmap" id="roadmapList">
+                <!-- Filled by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== DSA ===== -->
+    <section id="dsa">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">🧮 Data Structures & Algorithms</h2>
+                <p class="section-subtitle">500+ topics. Arrays se lekar Advanced DP tak. FAANG interviews ke liye ekdum perfect.</p>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>Category</th><th>Topics</th><th>FAANG Frequency</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Arrays</td><td>Two pointers, sliding window, prefix sum, Kadane</td><td>⭐⭐⭐⭐⭐</td></tr>
+                        <tr><td>Strings</td><td>Palindrome, anagram, KMP, Rabin-Karp</td><td>⭐⭐⭐⭐</td></tr>
+                        <tr><td>Linked Lists</td><td>Reverse, cycle, merge, LRU cache</td><td>⭐⭐⭐⭐</td></tr>
+                        <tr><td>Trees</td><td>BST, traversals, LCA, segment tree</td><td>⭐⭐⭐⭐⭐</td></tr>
+                        <tr><td>Graphs</td><td>BFS, DFS, Dijkstra, MST, topological</td><td>⭐⭐⭐⭐</td></tr>
+                        <tr><td>Dynamic Programming</td><td>1D, 2D, knapsack, LCS, LIS, DP on trees</td><td>⭐⭐⭐⭐⭐</td></tr>
+                        <tr><td>Sorting & Searching</td><td>Merge sort, quick sort, binary search variations</td><td>⭐⭐⭐⭐</td></tr>
+                        <tr><td>Recursion & Backtracking</td><td>Permutations, combinations, N-Queens</td><td>⭐⭐⭐</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== AI & ML ===== -->
+    <section id="ai" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">🤖 AI & Machine Learning 2026</h2>
+                <p class="section-subtitle">NumPy se lekar LLMs, RAG, AI Agents tak. Complete AI/ML curriculum 2026 standards ke saath.</p>
+            </div>
+
+            <div class="cards-grid cards-grid-4">
+                <div class="card">
+                    <div class="card-icon gradient1">🧮</div>
+                    <h3>NumPy & Pandas</h3>
+                    <p>Numerical computing aur data analysis ke master bano. Arrays, dataframes, visualization.</p>
+                    <span class="topics-count">50+ Topics</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon gradient2">📈</div>
+                    <h3>Scikit-Learn</h3>
+                    <p>ML algorithms - regression, classification, clustering, dimensionality reduction, model evaluation.</p>
+                    <span class="topics-count">100+ Topics</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon gradient3">🧠</div>
+                    <h3>Deep Learning</h3>
+                    <p>TensorFlow, PyTorch, CNNs, RNNs, Transformers, Transfer Learning, GANs.</p>
+                    <span class="topics-count">150+ Topics</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon gradient1">🤖</div>
+                    <h3>LLMs & AI Agents</h3>
+                    <p>LangChain, RAG, OpenAI API, AI Agents, MCP, CrewAI, AutoGen, Vector DBs.</p>
+                    <span class="topics-count">100+ Topics</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CAREER ===== -->
+    <section id="career">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">💼 Career Module</h2>
+                <p class="section-subtitle">Job ready, Freelance ready, Startup ready, FAANG interview ready.</p>
+            </div>
+
+            <div class="cards-grid cards-grid-3">
+                <div class="card card-clickable" onclick="scrollToTop()">
+                    <div class="card-icon gradient1">📝</div>
+                    <h3>Resume Building</h3>
+                    <p>ATS-friendly resume template, skills section, experience formatting, projects showcase.</p>
+                </div>
+                <div class="card card-clickable" onclick="scrollToTop()">
+                    <div class="card-icon gradient2">🔗</div>
+                    <h3>LinkedIn Optimization</h3>
+                    <p>Headline, about section, featured posts, recommendations, networking tips.</p>
+                </div>
+                <div class="card card-clickable" onclick="scrollToTop()">
+                    <div class="card-icon gradient3">💰</div>
+                    <h3>Freelancing Guide</h3>
+                    <p>Upwork, Fiverr, Toptal. Client communication, pricing, proposals, contracts.</p>
+                </div>
+                <div class="card card-clickable" onclick="scrollToTop()">
+                    <div class="card-icon gradient1">🎯</div>
+                    <h3>Interview Prep</h3>
+                    <p>HR interview, technical interview, behavioral questions (STAR method).</p>
+                </div>
+                <div class="card card-clickable" onclick="scrollToTop()">
+                    <div class="card-icon gradient2">🏛️</div>
+                    <h3>System Design</h3>
+                    <p>Design Twitter, Uber, Netflix, WhatsApp. Scale, databases, caching, microservices.</p>
+                </div>
+                <div class="card card-clickable" onclick="scrollToTop()">
+                    <div class="card-icon gradient3">🌟</div>
+                    <h3>Personal Branding</h3>
+                    <p>GitHub profile, open source, hackathons, blogging, tech community.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <h3>🌍 Code Duniya</h3>
+        <p>"Programming Seekhna Ab Hua Aasan"</p>
+        <div class="footer-links">
+            <a href="#">HTML5</a>
+            <a href="#">CSS3</a>
+            <a href="#">JavaScript</a>
+            <a href="#">React</a>
+            <a href="#">Python</a>
+            <a href="#">DSA</a>
+            <a href="#">AI/ML</a>
+            <a href="#">Cyber Security</a>
+        </div>
+        <p>© 2026 Code Duniya. Completely Free. Forever. 🚀</p>
+    </footer>
+
+    <script>
+        // ===== DATA =====
+        const languages = [
+            { name: 'HTML5', icon: '🌐', desc: 'Web ka skeleton. Har website ki foundation.', tags: ['beginner'], topics: '250+', color: '#e44d26', file: 'languages/html5.md' },
+            { name: 'CSS3', icon: '🎨', desc: 'Website ko sundar banayein. Flexbox, Grid, Animations.', tags: ['beginner'], topics: '300+', color: '#1572b6', file: 'languages/css3.md' },
+            { name: 'JavaScript ES2026', icon: '📜', desc: 'Web ki jaan. Client-side se server-side tak.', tags: ['beginner'], topics: '500+', color: '#f7df1e', file: 'languages/javascript.md' },
+            { name: 'TypeScript', icon: '📘', desc: 'JS ka professional version. Types ke saath.', tags: ['intermediate'], topics: '200+', color: '#3178c6', file: 'languages/typescript.md' },
+            { name: 'React 19', icon: '⚛️', desc: 'Modern UI framework. Components, Hooks, Server Comp.', tags: ['intermediate'], topics: '300+', color: '#61dafb', file: 'languages/react.md' },
+            { name: 'Next.js 15', icon: '▲', desc: 'Full-stack React. SSR, SSG, App Router.', tags: ['intermediate'], topics: '200+', color: '#000', file: 'languages/nextjs.md' },
+            { name: 'Node.js & Express', icon: '🟢', desc: 'Server-side JS. REST APIs, Auth, File upload.', tags: ['intermediate'], topics: '200+', color: '#339933', file: 'languages/nodejs.md' },
+            { name: 'Python', icon: '🐍', desc: 'Sabse easy aur powerful. AI, Web, Automation.', tags: ['beginner'], topics: '300+', color: '#3776ab', file: 'languages/python.md' },
+            { name: 'SQL & NoSQL', icon: '🗄️', desc: 'Relational + NoSQL DBs. Queries, indexes, agg.', tags: ['intermediate'], topics: '200+', color: '#4479a1', file: 'languages/sql.md' },
+            { name: 'C & C++', icon: '⚡', desc: 'Performance kings. OS, games, embedded.', tags: ['advanced'], topics: '200+', color: '#00599c', file: 'languages/cpp.md' },
+            { name: 'Java', icon: '☕', desc: 'Enterprise standard. Spring Boot, Microservices.', tags: ['intermediate'], topics: '200+', color: '#ed8b00', file: 'languages/java.md' },
+            { name: 'PHP', icon: '🐘', desc: 'Server-side scripting. Laravel, WordPress.', tags: ['intermediate'], topics: '250+', color: '#777bb4', file: 'languages/php.md' },
+            { name: 'C# (.NET)', icon: '🔷', desc: 'Microsoft ecosystem. ASP.NET, Unity games.', tags: ['intermediate'], topics: '250+', color: '#239120', file: 'languages/csharp.md' },
+            { name: 'Angular', icon: '🅰️', desc: 'Enterprise frontend. Components, DI, RxJS.', tags: ['advanced'], topics: '250+', color: '#dd0031', file: 'languages/angular.md' },
+            { name: 'Vue.js', icon: '💚', desc: 'Progressive frontend. Reactive, composable.', tags: ['intermediate'], topics: '200+', color: '#4fc08d', file: 'languages/vue.md' },
+            { name: 'Bootstrap 5', icon: '🎨', desc: 'CSS framework. Responsive design, components.', tags: ['beginner'], topics: '100+', color: '#7952b3', file: 'languages/bootstrap.md' },
+            { name: 'Go', icon: '🔵', desc: 'Cloud & backend lang. Fast, concurrent.', tags: ['intermediate'], topics: '150+', color: '#00add8', file: 'languages/go.md' },
+            { name: 'Rust', icon: '🦀', desc: 'Systems programming. Safe, fast, modern.', tags: ['advanced'], topics: '100+', color: '#dea584', file: 'languages/rust.md' },
+            { name: 'Kotlin', icon: '🟣', desc: 'Modern JVM lang. Android official.', tags: ['intermediate'], topics: '150+', color: '#7f52ff', file: 'languages/kotlin.md' },
+            { name: 'Swift', icon: '🍎', desc: 'Apple ecosystem. iOS, macOS apps.', tags: ['intermediate'], topics: '150+', color: '#f05138', file: 'languages/swift.md' },
+            { name: 'jQuery', icon: '💎', desc: 'JS library. DOM, events, AJAX simplified.', tags: ['beginner'], topics: '100+', color: '#0769ad', file: 'languages/jquery.md' },
+            { name: 'Sass/SCSS', icon: '💅', desc: 'CSS preprocessor. Variables, mixins, nesting.', tags: ['intermediate'], topics: '80+', color: '#cc6699', file: 'languages/sass.md' },
+            { name: 'PostgreSQL', icon: '🐘', desc: 'Advanced open-source relational DB.', tags: ['advanced'], topics: '150+', color: '#336791', file: 'languages/postgresql.md' },
+            { name: 'Linux & Bash', icon: '🐧', desc: 'Developer OS. Terminal, scripting, DevOps.', tags: ['intermediate'], topics: '150+', color: '#fcc624', file: 'languages/linux-bash.md' },
+            { name: 'Data Structures & Algorithms', icon: '🧮', desc: 'FAANG interviews ka secret. 500+ topics.', tags: ['advanced'], topics: '500+', color: '#6a1b9a', file: '../dsa/dsa.md' },
+            { name: 'AI & Machine Learning', icon: '🤖', desc: 'NumPy to LLMs. RAG, AI Agents, MCP.', tags: ['advanced'], topics: '400+', color: '#ff6f00', file: '../ai-ml/ai-ml.md' },
+            { name: 'Cyber Security', icon: '🔒', desc: 'Ethical hacking, OWASP, network security.', tags: ['advanced'], topics: '300+', color: '#e91e63', file: '../cyber-security/cyber-security.md' },
+        ];
+
+        const roadmapData = [
+            { phase: 'Beginners', title: 'HTML5, CSS3, JavaScript', desc: 'Web development ki solid foundation. HTML se structure, CSS se styling, JS se interactivity.', time: '2 Months', color: 'beginner' },
+            { phase: 'Beginners', title: 'Git, GitHub, Terminal', desc: 'Version control aur command line mein mahir bano. Developer ke daily tools.', time: '1 Week', color: 'beginner' },
+            { phase: 'Intermediate', title: 'TypeScript, React, Next.js', desc: 'Modern frontend development. Types, components, server-side rendering.', time: '3 Months', color: 'intermediate' },
+            { phase: 'Intermediate', title: 'Node.js, Express, Databases', desc: 'Backend development. REST APIs, MongoDB, SQL, authentication.', time: '2 Months', color: 'intermediate' },
+            { phase: 'Advanced', title: 'Data Structures & Algorithms', desc: 'Problem solving king bano. FAANG companies DSA puchhti hain.', time: '2 Months', color: 'advanced' },
+            { phase: 'Advanced', title: 'System Design & Architecture', desc: 'Large scale systems design karna seekho. Twitter, Uber, Netflix jaise.', time: '1 Month', color: 'advanced' },
+            { phase: 'Expert', title: 'AI/ML, LLMs, AI Agents', desc: 'Future ki technology. Python, TensorFlow, LangChain, RAG, MCP.', time: '2 Months', color: 'expert' },
+            { phase: 'Expert', title: 'Cyber Security & Ethical Hacking', desc: 'Digital world ko safe karo. Penetration testing, OWASP, cryptography.', time: '1 Month', color: 'expert' },
+        ];
+
+        // ===== RENDER LANGUAGES =====
+        function renderLanguages(filter = '') {
+            const grid = document.getElementById('langGrid');
+            const filtered = languages.filter(l =>
+                l.name.toLowerCase().includes(filter.toLowerCase()) ||
+                l.desc.toLowerCase().includes(filter.toLowerCase())
+            );
+
+            grid.innerHTML = filtered.length
+                ? filtered.map((l, i) => `
+                    <div class="card lang-card">
+                        <div class="card-icon gradient${(i % 3) + 1}" style="font-size:2rem;">${l.icon}</div>
+                        <h3>${highlightText(l.name, filter)}</h3>
+                        <p>${highlightText(l.desc, filter)}</p>
+                        <div class="tags">
+                            ${l.tags.map(t => `<span class="tag tag-${t}">${t}</span>`).join('')}
+                        </div>
+                        <span class="topics-count">📚 ${l.topics} Topics</span>
+                        <div class="card-actions">
+                            <a href="${l.file}" class="btn-primary">📖 Start Learning</a>
+                            <a href="#" class="btn-outline">⭐ Save</a>
+                        </div>
+                    </div>
+                `).join('')
+                : `<p style="grid-column:1/-1;text-align:center;color:var(--text-secondary);padding:40px;">😕 No results found for "${filter}"</p>`;
+        }
+
+        // ===== RENDER ROADMAP =====
+        function renderRoadmap() {
+            const list = document.getElementById('roadmapList');
+            list.innerHTML = roadmapData.map(item => `
+                <div class="roadmap-item">
+                    <div class="phase ${item.color}">${item.phase} • ${item.time}</div>
+                    <h3>${item.title}</h3>
+                    <p>${item.desc}</p>
+                </div>
+            `).join('');
+        }
+
+        // ===== SEARCH HIGHLIGHT =====
+        function highlightText(text, query) {
+            if (!query) return text;
+            const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            return text.replace(regex, '<span class="search-highlight">$1</span>');
+        }
+
+        // ===== SEARCH =====
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            renderLanguages(e.target.value);
+        });
+
+        // ===== THEME TOGGLE =====
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+
+        function getPreferredTheme() {
+            const stored = localStorage.getItem('theme');
+            if (stored) return stored;
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+        }
+
+        setTheme(getPreferredTheme());
+
+        themeToggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            setTheme(current === 'dark' ? 'light' : 'dark');
+        });
+
+        // ===== SCROLL PROGRESS =====
+        window.addEventListener('scroll', () => {
+            const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollProgress = (window.scrollY / scrollTotal) * 100;
+            document.getElementById('scrollProgress').style.width = scrollProgress + '%';
+        });
+
+        // ===== MOBILE MENU =====
+        document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+            document.getElementById('navLinks').classList.toggle('show');
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('show');
+            });
+        });
+
+        // ===== SMOOTH SCROLL FOR NAV =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ===== INIT =====
+        renderLanguages();
+        renderRoadmap();
+    </script>
+</body>
+</html>
